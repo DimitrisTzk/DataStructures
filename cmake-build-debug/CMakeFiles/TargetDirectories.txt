@@ -1,0 +1,3 @@
+D:/Files/Documents/Pliroforiki/2nd-DD-C++/1.Data Structures/cmake-build-debug/CMakeFiles/1_Data_Structures.dir
+D:/Files/Documents/Pliroforiki/2nd-DD-C++/1.Data Structures/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Files/Documents/Pliroforiki/2nd-DD-C++/1.Data Structures/cmake-build-debug/CMakeFiles/rebuild_cache.dir

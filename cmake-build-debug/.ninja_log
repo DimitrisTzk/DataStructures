@@ -1,0 +1,12 @@
+# ninja log v5
+1	499	7096742389331583	build.ninja	42c39819c8d14dfe
+17	896	7096714756013316	CMakeFiles/1_Data_Structures.dir/DataStructure.cpp.obj	d31a5ee750b5a286
+1179	1763	7092258853171841	CMakeFiles/1_Data_Structures.dir/SimpleBinaryTree.cpp.obj	7473d7c482f047a
+7	768	7096735024185698	CMakeFiles/1_Data_Structures.dir/UnsortedArray.cpp.obj	ea136442e0d5fe02
+4	1023	7096716761740563	CMakeFiles/1_Data_Structures.dir/main.cpp.obj	d7e972de014733d5
+768	1237	7096735028828189	1_Data_Structures.exe	da71f3c5a9a7540f
+10	927	7096714756323001	CMakeFiles/1_Data_Structures.dir/SortedArray.cpp.obj	88466a7330aff277
+812	1448	7092258850010866	CMakeFiles/1_Data_Structures.dir/AVLBinaryTree.cpp.obj	65af825a8d60e479
+927	1773	7096714764814668	CMakeFiles/1_Data_Structures.dir/HashTable.cpp.obj	ba9121ca969ab858
+897	1738	7096714764435058	CMakeFiles/1_Data_Structures.dir/AVLTree.cpp.obj	721500903b24b79c
+5	916	7096714756213114	CMakeFiles/1_Data_Structures.dir/BinarySearchTree.cpp.obj	871cfeb39347cf6a
