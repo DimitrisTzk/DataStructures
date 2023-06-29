@@ -13,7 +13,7 @@
 #define outFile "output.txt"                                                                                            //Define the output file for the program
 #define NumOfPairsToFind 10000                                                                                          //Number of random pairs needed for the program
 #define PairLimit (-1)                                                                                                  //Pair limit for testing purposes, -1 for no limit. Must be bigger than NumOfPairsToFind
-#define InitialSize 100000                                                                                              //Initial size for the Arrays and the Hash Table
+#define InitialSize 1000000                                                                                             //Initial size for the Arrays and the Hash Table
 
 using namespace std;
 

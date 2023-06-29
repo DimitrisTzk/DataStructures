@@ -32,7 +32,7 @@ void HashTable::addPair(const string& word1, const string& word2)
     if (UniquePairs >= MaxSize * LoadFactor)                                                                            // Check if the load factor is reached
         resizeTable();
 
-    int index = hash(word1 + word2);
+    int index = hash1(word1 + word2);
 
     if (Table[index] != nullptr && Table[index]->wordPair == make_pair(word1, word2))                             // Check if the pair already exists
     {
@@ -45,7 +45,7 @@ void HashTable::addPair(const string& word1, const string& word2)
     while (Table[probeIndex] != nullptr && Table[probeIndex]->wordPair != make_pair(word1, word2))
     {
         probeCount++;
-        probeIndex = abs(index + probeCount * hash2(word1 + word2)) % MaxSize;                                 // Use the second hash function to find the next slot. Added abs() to avoid negative numbers
+        probeIndex = abs(index + probeCount * hash2(word1 + word2)) % MaxSize;                                 // Use the second hash1 function to find the next slot. Added abs() to avoid negative numbers
     }
 
     if (Table[probeIndex] == nullptr)                                                                                   // If the slot is empty, add the pair
@@ -73,14 +73,13 @@ void HashTable::resizeTable()
     {
         if (Table[i] != nullptr)
         {
-            int index = hash(Table[i]->wordPair.first + Table[i]->wordPair.second);
+            int index = hash1(Table[i]->wordPair.first + Table[i]->wordPair.second);
             int probeCount = 0;
             int probeIndex = index;
             while (newTable[probeIndex] != nullptr && probeCount < MaxSize)
             {
-                probeIndex = (index + probeCount * hash2(Table[i]->wordPair.first + Table[i]->wordPair.second))
-                             % MaxSize;
                 probeCount++;
+                probeIndex = abs(index + probeCount * hash2(Table[i]->wordPair.first + Table[i]->wordPair.second)) % MaxSize;
             }
 
             if (newTable[probeIndex] == nullptr)
@@ -89,19 +88,17 @@ void HashTable::resizeTable()
                 newTable[probeIndex]->wordPair = Table[i]->wordPair;
                 newTable[probeIndex]->count = Table[i]->count;
             }
+
+            delete Table[i];
         }
     }
-    for (int i = 0; i < oldSize; i++)
-    {
-        if (Table[i] != nullptr)
-            delete Table[i];
-    }
+
     delete[] Table;
     Table = newTable;
 }
 
 // Function that returns the hash value of a word using the djb2 algorithm
-int HashTable::hash(const string& word) const
+int HashTable::hash1(const string& word) const
 {
     unsigned long hash = 5381;
     for (char i : word)
@@ -123,7 +120,7 @@ void HashTable::findPairs(pair<string, string> *q, int size, ofstream &outFile)
 {
     for (int i = 0; i < size; i++)
     {
-        int index = hash(q[i].first + q[i].second);
+        int index = hash1(q[i].first + q[i].second);
         int probeCount = 0;
         int probeIndex = index;
 

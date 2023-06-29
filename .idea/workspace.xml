@@ -20,10 +20,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cba6a810-23e0-4a89-9652-e63a52adc9a8" name="Changes" comment="Polishing">
+    <list default="true" id="cba6a810-23e0-4a89-9652-e63a52adc9a8" name="Changes" comment="More polishing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AVLTree.h" beforeDir="false" afterPath="$PROJECT_DIR$/AVLTree.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BinarySearchTree.h" beforeDir="false" afterPath="$PROJECT_DIR$/BinarySearchTree.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/HashTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HashTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/HashTable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/1_Data_Structures.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/1_Data_Structures.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/HashTable.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/HashTable.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/main.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +120,7 @@
       <workItem from="1687908909362" duration="3890000" />
       <workItem from="1687913306237" duration="2319000" />
       <workItem from="1687964130790" duration="26593000" />
-      <workItem from="1688032847265" duration="10351000" />
+      <workItem from="1688032847265" duration="17246000" />
     </task>
     <task id="LOCAL-00001" summary="-Added many missing comments.&#10;-Changed the findPairs functions to take the ofstream of the output file as an argument to avoid opening and closing the file all the time.&#10;-Changed the DataStructure constructor to take the InitialSize as an argument to move its definition to the main file">
       <option name="closed" value="true" />
@@ -147,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1688047557145</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="More polishing">
+      <option name="closed" value="true" />
+      <created>1688048494844</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1688048494844</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,12 +190,15 @@
     <MESSAGE value="-Now stops reading the file after reaching the set limit" />
     <MESSAGE value="-Now stops reading the file after reaching the set limit&#10;-Reverted UnsortedArray to stable version" />
     <MESSAGE value="Polishing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Polishing" />
+    <MESSAGE value="More polishing" />
+    <option name="LAST_COMMIT_MESSAGE" value="More polishing" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="UniquePairs" language="ObjectiveC" />
+        <watch expression="Collisions" language="ObjectiveC" />
+        <watch expression="MaxSize" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>
