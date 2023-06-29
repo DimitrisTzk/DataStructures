@@ -42,8 +42,16 @@ void pickRandomPairs(const vector<string>& words, int numPairs, pair<string, str
 }
 
 //Function that processes the input file and picks random pairs of words from it
-bool processFile(const string& file, pair<string, string>* q, int numPairs)
+bool processFile(const string& file, pair<string, string>* q, int pairLimit, int numPairs)
 {
+    if (pairLimit != -1 && (pairLimit < numPairs))                                                                                           // Check if the number of pairs requested exceeds the limit
+    {
+        cerr << "Number of pairs requested exceeds the limit!" << endl;
+        return false;
+    }
+
+    cout << "Processing file..." << endl;
+
     ifstream inFile(file);
     ofstream outFile("edited.txt");
 
@@ -61,9 +69,13 @@ bool processFile(const string& file, pair<string, string>* q, int numPairs)
     char c;
     char prevChar = '\0';
     string content;
+    int wordCount = 0;
 
     while (inFile.get(c))                                                                                            // Convert to lowercase
     {
+        if (pairLimit != -1 && (wordCount == pairLimit + 1))                                                                                 // Stop reading the file if the limit is reached
+            break;
+
         if (isalnum(c))
         {
             outFile << static_cast<char>(tolower(c));
@@ -76,6 +88,7 @@ bool processFile(const string& file, pair<string, string>* q, int numPairs)
             {
                 outFile << ' ';
                 content += ' ';
+                ++wordCount;
             }
             prevChar = ' ';
         }

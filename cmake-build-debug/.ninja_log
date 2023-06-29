@@ -18,3 +18,14 @@
 1095	1715	7096904728189937	CMakeFiles/1_Data_Structures.dir/AVLTree.cpp.obj	721500903b24b79c
 1349	1920	7096904730238161	CMakeFiles/1_Data_Structures.dir/DataStructure.cpp.obj	d31a5ee750b5a286
 1920	2253	7096904733478164	1_Data_Structures.exe	da71f3c5a9a7540f
+28	830	7097369277270141	CMakeFiles/1_Data_Structures.dir/SortedArray.cpp.obj	88466a7330aff277
+5	850	7097369277529880	CMakeFiles/1_Data_Structures.dir/UnsortedArray.cpp.obj	ea136442e0d5fe02
+13	1233	7097369281361972	CMakeFiles/1_Data_Structures.dir/main.cpp.obj	d7e972de014733d5
+1233	1538	7097369284376769	1_Data_Structures.exe	da71f3c5a9a7540f
+5	1361	7097391054257004	CMakeFiles/1_Data_Structures.dir/main.cpp.obj	d7e972de014733d5
+1361	2386	7097391064448297	1_Data_Structures.exe	da71f3c5a9a7540f
+6	1211	7097453582652753	CMakeFiles/1_Data_Structures.dir/UnsortedArray.cpp.obj	ea136442e0d5fe02
+4	1141	7097454238591950	CMakeFiles/1_Data_Structures.dir/main.cpp.obj	d7e972de014733d5
+1141	1641	7097454243537009	1_Data_Structures.exe	da71f3c5a9a7540f
+6	1025	7097456289577496	CMakeFiles/1_Data_Structures.dir/main.cpp.obj	d7e972de014733d5
+1026	1217	7097456291435547	1_Data_Structures.exe	da71f3c5a9a7540f

@@ -8,7 +8,7 @@ UnsortedArray::UnsortedArray(const string &txt, int limit, int initialSize) : Da
 
     makeStructure(txt);
 
-    cout << "AllPairs: " << UniquePairs << " MaxSize: " << MaxSize << endl;
+    cout << "UniquePairs: " << UniquePairs << " MaxSize: " << MaxSize << endl;
 }
 
 //Destructor
@@ -25,19 +25,19 @@ void UnsortedArray::addPair(const string& word1, const string& word2)
         resizeArray();
     }
 
-//    //Check if the pair is already in the array, if so, increase the count, if not, add it to the array
-//    for (int i = 0; i < UniquePairs; ++i)
-//    {
-//        if (PairsArray[i].wordPair == make_pair(word1, word2))
-//        {
-//            ++PairsArray[i].count;
-//            return;
-//        }
-//    }
+    //Check if the pair is already in the array, if so, increase the count, if not, add it to the array
+    for (int i = 0; i < UniquePairs; ++i)
+    {
+        if (PairsArray[i].wordPair == make_pair(word1, word2))
+        {
+            ++PairsArray[i].count;
+            return;
+        }
+    }
 
     PairsArray[UniquePairs].wordPair.first = word1;
     PairsArray[UniquePairs].wordPair.second = word2;
-    //++PairsArray[UniquePairs].count;
+    ++PairsArray[UniquePairs].count;
     ++UniquePairs;
 }
 
@@ -59,16 +59,15 @@ void UnsortedArray::resizeArray()
 //Function that finds the pairs of the q array inside the PairsArray, counts them and writes them to the file
 void UnsortedArray::findPairs(pair<string, string>* q, int size, ofstream &outFile)
 {
-    int count;
-
     for (int i = 0; i < size; ++i)
     {
-        count = 0;
         for (int j = 0; j < UniquePairs; ++j)
         {
             if (q[i] == PairsArray[j].wordPair)
-                count++;
+            {
+                outFile << q[i].first << " " << q[i].second << " " << PairsArray[j].count << endl;
+                break;
+            }
         }
-        outFile << q[i].first << " " << q[i].second << " " << count << endl;
     }
 }
