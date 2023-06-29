@@ -1,5 +1,5 @@
-#ifndef SIMPLEBINARYTREE_H
-#define SIMPLEBINARYTREE_H
+#ifndef BINARYSEARCHTREE_H
+#define BINARYSEARCHTREE_H
 
 #include "DataStructure.h"
 
@@ -26,4 +26,4 @@ class BinarySearchTree : public DataStructure{
         static int getHeight(Node *node);
 };
 
-#endif //SIMPLEBINARYTREE_H
+#endif //BINARYSEARCHTREE_H

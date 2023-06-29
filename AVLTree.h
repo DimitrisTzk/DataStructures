@@ -1,5 +1,5 @@
-#ifndef AVLBINARYTREE_H
-#define AVLBINARYTREE_H
+#ifndef AVLTREE_H
+#define AVLTREE_H
 
 #include "DataStructure.h"
 
@@ -31,4 +31,4 @@ class AVLTree : public DataStructure{
 };
 
 
-#endif //AVLBINARYTREE_H
+#endif //AVLTREE_H
