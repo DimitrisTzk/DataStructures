@@ -1,7 +1,7 @@
 #include "UnsortedArray.h"
 
 //Constructor
-UnsortedArray::UnsortedArray(const string& txt, int limit) : DataStructure(limit)
+UnsortedArray::UnsortedArray(const string &txt, int limit, int initialSize) : DataStructure(limit, initialSize)
 {
     cout << endl << "    UnsortedArray" << endl;
     PairsArray = new Pairs[MaxSize];
@@ -57,15 +57,8 @@ void UnsortedArray::resizeArray()
 }
 
 //Function that finds the pairs of the q array inside the PairsArray, counts them and writes them to the file
-void UnsortedArray::findPairs(pair<string, string>* q, int size, const string &file)
+void UnsortedArray::findPairs(pair<string, string>* q, int size, ofstream &outFile)
 {
-    ofstream outFile(file, ios::app);
-    if (!outFile.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return;
-    }
-
     int count;
 
     for (int i = 0; i < size; ++i)
@@ -78,5 +71,4 @@ void UnsortedArray::findPairs(pair<string, string>* q, int size, const string &f
         }
         outFile << q[i].first << " " << q[i].second << " " << count << endl;
     }
-    outFile.close();
 }

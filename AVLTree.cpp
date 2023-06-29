@@ -1,7 +1,7 @@
 #include "AVLTree.h"
 
 //Constructor
-AVLTree::AVLTree(const string& txt, int limit) : DataStructure(limit)
+AVLTree::AVLTree(const string &txt, int limit, int initialSize) : DataStructure(limit, initialSize)
 {
     cout << endl << "    AVLTree" << endl;
 
@@ -18,7 +18,7 @@ AVLTree::~AVLTree()
     destroyTree(Root);
 }
 
-//Helper function for the destructor
+//Recursively delete every node in the tree
 void AVLTree::destroyTree(Node* node)
 {
     if (node != nullptr)
@@ -41,20 +41,16 @@ void AVLTree::makeTree(const string &filename)
 
     string word1, word2;
 
-    // Read the first word
     if (file >> word1)
     {
-        // Read the second word
         while (file >> word2)
         {
-            //Stop reading the file when it reaches PairLimit pairs
-            if (UniquePairs == pairLimit)
+            if (UniquePairs == pairLimit)                                                                               //Stop after reaching the set limit
                 return;
 
             addPair(Root, word1, word2);
 
-            // Swap word2 to word1 for the next iteration
-            word1 = word2;
+            word1 = word2;                                                                                              // Swap word2 to word1 for the next iteration
         }
     }
     file.close();
@@ -63,7 +59,7 @@ void AVLTree::makeTree(const string &filename)
 //Function to add a node to the tree and balance it if necessary
 void AVLTree::addPair(AVLTree::Node *&node, const string& word1, const string& word2)
 {
-    if (node == nullptr)
+    if (node == nullptr)                                                                                                //If the node is empty, create a new node
     {
         node = new Node;
         node->Pair.wordPair.first = word1;
@@ -73,7 +69,7 @@ void AVLTree::addPair(AVLTree::Node *&node, const string& word1, const string& w
         node->right = nullptr;
         UniquePairs++;
     }
-    else if (word1 < node->Pair.wordPair.first ||
+    else if (word1 < node->Pair.wordPair.first ||                                                                       //Find the right place to add the node and check if the tree needs to be balanced
              (word1 == node->Pair.wordPair.first && word2 < node->Pair.wordPair.second))
     {
         addPair(node->left, word1, word2);
@@ -99,9 +95,9 @@ void AVLTree::addPair(AVLTree::Node *&node, const string& word1, const string& w
                 doubleRotateRight(node);
         }
     }
-    else
+    else                                                                                                                //The only other case is if the pair already exists, in which case we just increment the count
         node->Pair.count++;
-    node->height = max(getHeight(node->left), getHeight(node->right)) + 1;
+    node->height = max(getHeight(node->left), getHeight(node->right)) + 1;                                   //Update the height of the node by taking the max height of its children and adding 1
 }
 
 //Function to rotate the tree to the left
@@ -145,25 +141,18 @@ void AVLTree::doubleRotateRight(Node*& node)
 }
 
 //Function to find the pairs in the tree and append them to the file
-void AVLTree::findPairs(pair<string, string> *q, int size, const string &file)
+void AVLTree::findPairs(pair<string, string> *q, int size, ofstream &outFile)
 {
-    ofstream outFile(file, ios::app);
-    if (!outFile.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return;
-    }
     for (int i = 0; i < size; ++i)
     {
         findPair(Root, q[i], outFile);
     }
-    outFile.close();
 }
 
 //Function to find a pair in the tree
 void AVLTree::findPair(Node* node, const pair<string, string>& q, ofstream& file)
 {
-    if (node == nullptr)                                                  //Edge case of the pair not being in the tree
+    if (node == nullptr)                                                                                                //Edge case of the pair not being in the tree
     {
         file << q.first << " " << q.second << " NOTFOUND" << endl;
         return;

@@ -1,7 +1,7 @@
 #include "HashTable.h"
 
 // Constructor
-HashTable::HashTable(const string& txt, int limit) : DataStructure(limit)
+HashTable::HashTable(const string &txt, int limit, int initialSize) : DataStructure(limit, initialSize)
 {
     cout << endl << "    HashTable" << endl;
     Collisions=0;
@@ -29,43 +29,37 @@ HashTable::~HashTable()
 // Function that adds a pair to the table
 void HashTable::addPair(const string& word1, const string& word2)
 {
-    // Check if the table needs to be resized
-    if (UniquePairs >= MaxSize * LoadFactor)
+    if (UniquePairs >= MaxSize * LoadFactor)                                                                            // Check if the load factor is reached
         resizeTable();
 
     int index = hash(word1 + word2);
 
-    if (Table[index] != nullptr && Table[index]->wordPair == make_pair(word1, word2))
+    if (Table[index] != nullptr && Table[index]->wordPair == make_pair(word1, word2))                             // Check if the pair already exists
     {
         Table[index]->count++;
         return;
     }
 
-    // Find the next available slot using double hashing
-    int probeCount = 0;
+    int probeCount = 0;                                                                                                 //Use double hashing to find an empty slot
     int probeIndex = index;
     while (Table[probeIndex] != nullptr && Table[probeIndex]->wordPair != make_pair(word1, word2))
     {
         probeCount++;
-        probeIndex = abs(index + probeCount * hash2(word1 + word2)) % MaxSize;
+        probeIndex = abs(index + probeCount * hash2(word1 + word2)) % MaxSize;                                 // Use the second hash function to find the next slot. Added abs() to avoid negative numbers
     }
 
-    // If a slot is found, add the pair or increment the count if the pair already exists
-    if (Table[probeIndex] == nullptr)
+    if (Table[probeIndex] == nullptr)                                                                                   // If the slot is empty, add the pair
     {
         Table[probeIndex] = new Pairs;
         Table[probeIndex]->wordPair = make_pair(word1, word2);
         Table[probeIndex]->count = 1;
         UniquePairs++;
         Collisions += probeCount;
-    } else if (Table[probeIndex]->wordPair == make_pair(word1, word2))
-    {
+    } else if (Table[probeIndex]->wordPair == make_pair(word1, word2))                                            // If the pair already exists, increase the count
         Table[probeIndex]->count++;
-    }
 }
 
-// Function that resizes the table when the load factor is reached by doubling the size of the table and finding the
-// next prime number as the new size
+// Function that resizes the table when the load factor is reached by doubling the size of the table and finding the next prime number as the new size
 void HashTable::resizeTable()
 {
     int oldSize = MaxSize;
@@ -75,8 +69,7 @@ void HashTable::resizeTable()
     for (int i = 0; i < MaxSize; i++)
         newTable[i] = nullptr;
 
-    // Rehash the pairs into the new table
-    for (int i = 0; i < oldSize; i++)
+    for (int i = 0; i < oldSize; i++)                                                                                   // Rehash the pairs into the new table
     {
         if (Table[i] != nullptr)
         {
@@ -126,27 +119,23 @@ int HashTable::hash2(const string& word) const
 }
 
 // Function that finds the pairs in the table and appends them to a file
-void HashTable::findPairs(pair<string, string> *q, int size, const string &file)
+void HashTable::findPairs(pair<string, string> *q, int size, ofstream &outFile)
 {
-    ofstream outfile(file, ios::app);
-
     for (int i = 0; i < size; i++)
     {
         int index = hash(q[i].first + q[i].second);
         int probeCount = 0;
         int probeIndex = index;
 
-        while (Table[probeIndex] != nullptr && probeCount < MaxSize)
+        while (Table[probeIndex] != nullptr && Table[probeIndex]->wordPair != q[i])                                     //Use double hashing to find the pair
         {
-            if (Table[probeIndex]->wordPair.first == q[i].first && Table[probeIndex]->wordPair.second == q[i].second)
-            {
-                outfile << Table[probeIndex]->wordPair.first << " " << Table[probeIndex]->wordPair.second << " "
-                        << Table[probeIndex]->count << endl;
-                break;
-            }
-            probeIndex = (probeIndex + 1) % MaxSize;
             probeCount++;
+            probeIndex = abs(index + probeCount * hash2(q[i].first + q[i].second)) % MaxSize;
         }
+
+        if (Table[probeIndex] != nullptr && Table[probeIndex]->wordPair == q[i])
+            outFile << q[i].first << " " << q[i].second << " " << Table[probeIndex]->count << endl;
+        else
+            outFile << q[i].first << " " << q[i].second << " NOTFOUND" << endl;
     }
-    outfile.close();
 }

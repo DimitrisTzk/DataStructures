@@ -1,17 +1,21 @@
 #include "DataStructure.h"
 
-DataStructure::DataStructure(int limit) {
+//Constructor
+DataStructure::DataStructure(int limit, int initialSize)
+{
     pairLimit = limit;
     UniquePairs = 0;
-    MaxSize = InitialSize;
+    MaxSize = initialSize;
 }
 
+//Default destructor
 DataStructure::~DataStructure() = default;
 
-void DataStructure::makeStructure(const string& filename) {
+//Function that reads the words from the file and creates the data structure
+void DataStructure::makeStructure(const string& filename)
+{
     ifstream file(filename);
-
-    if (!file.is_open())
+    if (!file.is_open())                                                                                                //Check if the file opened correctly
     {
         cout << "Failed to open the file." << endl;
         return;
@@ -19,20 +23,16 @@ void DataStructure::makeStructure(const string& filename) {
 
     string word1, word2;
 
-    // Read the first word
     if (file >> word1)
     {
-        // Read the second word
         while (file >> word2)
         {
-            //Stop reading the file when it reaches PairLimit pairs
-            if (UniquePairs == pairLimit)
+            if (UniquePairs == pairLimit)                                                                               //Stop after reaching the set limit
                 return;
 
             addPair(word1, word2);
 
-            // Swap word2 to word1 for the next iteration
-            word1 = word2;
+            word1 = word2;                                                                                              // Swap word2 to word1 for the next iteration
         }
     }
 }

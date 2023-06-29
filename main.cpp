@@ -9,232 +9,146 @@
 #include "AVLTree.h"
 #include "HashTable.h"
 
-#define inFile "gutenberg.txt"                                                                                          //Define the input file for the program (small-file.txt or gutenberg.txt)
+#define inFile "small-file.txt"                                                                                          //Define the input file for the program (small-file.txt or gutenberg.txt)
 #define outFile "output.txt"                                                                                            //Define the output file for the program
 #define NumOfRandomPairs 10000                                                                                          //Number of random pairs needed for the program
 #define PairLimit (-1)                                                                                                  //Pair limit for testing purposes, -1 for no limit
+#define InitialSize 1000000                                                                                             //Initial size for the Arrays and the Hash Table
 
 using namespace std;
 
 
-int main() {
+int main()
+{
+    auto startProgram = chrono::high_resolution_clock::now();                                              //Timer for the program runtime
 
-    auto startProgram = chrono::high_resolution_clock::now();
-
-    //Process the input file and pick random pairs of words from it
     pair<string, string> wordPairs[NumOfRandomPairs];
     auto start = chrono::high_resolution_clock::now();
-    if (!processFile(inFile, wordPairs, NumOfRandomPairs))
+    if (!processFile(inFile, wordPairs, NumOfRandomPairs))                                              //Run the processFile function to process the input file and choose random pairs from it
     {
         cout << "Failed to open the file." << endl;
-        return -1;
+        return -1;                                                                                                      //If the file failed to open, return -1
     }
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
     cout << "Time to process file and choose random pairs: " << duration << " milliseconds." << endl << endl;
 
-    //Open the output file and check if it opened correctly
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    start = chrono::high_resolution_clock::now();                                                                       //Create the Unsorted Array and track how long it takes to be generated
+    UnsortedArray unsortedArray("edited.txt", PairLimit, InitialSize);
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
     ofstream outputFile(outFile);
-    if (!outputFile.is_open())
+    if (!outputFile.is_open())                                                                                          //Open the output file and check if it opened correctly
     {
         cout << "Failed to open the file." << endl;
         return -1;
     }
-
-    //------------------------------------------------------------------------------------------------------------------
-
-    //Create the Unsorted Array and track how long it takes to be generated and print it into the output file
-    start = chrono::high_resolution_clock::now();
-    UnsortedArray unsortedArray("edited.txt", PairLimit);
-    end = chrono::high_resolution_clock::now();
-    duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     outputFile << "Unsorted Array" << endl;
     outputFile << "Time to create: " << duration << " milliseconds." << endl << endl;
-    outputFile.close();
 
     cout << "Time to create: " << duration << " milliseconds." << endl;
 
-    //Call the findPairs function of the Unsorted Array to find the number of appearances of each pair and print the
-    //results into the output file
-    start = chrono::high_resolution_clock::now();
-    unsortedArray.findPairs(wordPairs, NumOfRandomPairs, outFile);
+    start = chrono::high_resolution_clock::now();                                                                       //Find the pairs in the Unsorted Array and track how long it takes
+    unsortedArray.findPairs(wordPairs, NumOfRandomPairs, outputFile);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-    outputFile.open(outFile, ios::app);
-    if (!outputFile.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return -1;
-    }
     outputFile << endl << "Time to find pairs in the Unsorted Array: " << duration << " milliseconds." << endl <<
     "------------------------------------------------------------------------------------------------------------------------" << endl;
 
     cout << "Time to find pairs in the Unsorted Array: " << duration << " milliseconds." << endl;
 
-    //------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//    //Create the Sorted Array and track how long it takes to be generated and print it into the output file
-//    start = chrono::high_resolution_clock::now();
-//    SortedArray sortedArray("edited.txt", PairLimit);
-//    end = chrono::high_resolution_clock::now();
-//    duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-//    outputFile << "Sorted Array" << endl;
-//    outputFile << "Time to create: " << duration << " milliseconds." << endl << endl;
-//    outputFile.close();
-//
-//    cout << "Time to create: " << duration << " milliseconds." << endl;
-//
-//    //Call the findPairs function of the Sorted Array to find the number of appearances of each pair and print the
-//    //results into the output file
-//    start = chrono::high_resolution_clock::now();
-//    sortedArray.findPairs(wordPairs, NumOfRandomPairs, outFile);
-//    end = chrono::high_resolution_clock::now();
-//    duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-//
-//    outputFile.open(outFile, ios::app);
-//    if (!outputFile.is_open())
-//    {
-//        cout << "Failed to open the file." << endl;
-//        return -1;
-//    }
-//    outputFile << endl << "Time to find pairs in the Sorted Array: " << duration << " milliseconds." << endl <<
-//    "------------------------------------------------------------------------------------------------------------------------" << endl;
-//
-//    cout << "Time to find pairs in the Sorted Array: " << duration << " milliseconds." << endl;
+    start = chrono::high_resolution_clock::now();                                                                       //Create the Sorted Array and track how long it takes to be generated
+    SortedArray sortedArray("edited.txt", PairLimit, InitialSize);
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+    outputFile << "Sorted Array" << endl;
+    outputFile << "Time to create: " << duration << " milliseconds." << endl << endl;
 
-    //------------------------------------------------------------------------------------------------------------------
+    cout << "Time to create: " << duration << " milliseconds." << endl;
 
-    //Create the Simple Tree and track how long it takes to be generated and print it into the output file
-    start = chrono::high_resolution_clock::now();
-    BinarySearchTree bst("edited.txt", PairLimit);
+    start = chrono::high_resolution_clock::now();                                                                       //Find the pairs in the Sorted Array and track how long it takes
+    sortedArray.findPairs(wordPairs, NumOfRandomPairs, outputFile);
+    end = chrono::high_resolution_clock::now();
+    duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+    outputFile << endl << "Time to find pairs in the Sorted Array: " << duration << " milliseconds." << endl <<
+    "------------------------------------------------------------------------------------------------------------------------" << endl;
+
+    cout << "Time to find pairs in the Sorted Array: " << duration << " milliseconds." << endl;
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    start = chrono::high_resolution_clock::now();                                                                       //Create the Binary Search Tree and track how long it takes to be generated
+    BinarySearchTree bst("edited.txt", PairLimit, InitialSize);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     outputFile << "Binary Search Tree" << endl;
     outputFile << "Time to create: " << duration << " milliseconds." << endl << endl;
-    outputFile.close();
 
     cout << "Time to create: " << duration << " milliseconds." << endl;
 
-    //Call the findPairs function of the Simple Tree to find the number of appearances of each pair and print the
-    //results into the output file
-    start = chrono::high_resolution_clock::now();
-    bst.findPairs(wordPairs, NumOfRandomPairs, outFile);
+    start = chrono::high_resolution_clock::now();                                                                       //Find the pairs in the Binary Search Tree and track how long it takes
+    bst.findPairs(wordPairs, NumOfRandomPairs, outputFile);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-    outputFile.open(outFile, ios::app);
-    if (!outputFile.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return -1;
-    }
     outputFile <<endl << "Time to find pairs in the Binary Search Tree: " << duration << " milliseconds." << endl <<
     "------------------------------------------------------------------------------------------------------------------------" << endl;
 
     cout << "Time to find pairs: " << duration << " milliseconds." << endl;
 
-    //------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    //Create the AVL Tree and track how long it takes to be generated and print it into the output file
-    start = chrono::high_resolution_clock::now();
-    AVLTree avl("edited.txt", PairLimit);
+    start = chrono::high_resolution_clock::now();                                                                       //Create the AVL Tree and track how long it takes to be generated
+    AVLTree avl("edited.txt", PairLimit, InitialSize);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     outputFile << "AVL Binary Tree" << endl;
     outputFile << "Time to create: " << duration << " milliseconds." << endl << endl;
-    outputFile.close();
 
     cout << "Time to create: " << duration << " milliseconds." << endl;
 
-    //Call the findPairs function of the AVL Tree to find the number of appearances of each pair and print the
-    //results into the output file
-    start = chrono::high_resolution_clock::now();
-    avl.findPairs(wordPairs, NumOfRandomPairs, outFile);
+    start = chrono::high_resolution_clock::now();                                                                       //Find the pairs in the AVL Tree and track how long it takes
+    avl.findPairs(wordPairs, NumOfRandomPairs, outputFile);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-    outputFile.open(outFile, ios::app);
-    if (!outputFile.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return -1;
-    }
     outputFile << endl << "Time to find pairs in the AVL Tree: " << duration << " milliseconds." << endl <<
     "------------------------------------------------------------------------------------------------------------------------" << endl;
 
     cout << "Time to find pairs: " << duration << " milliseconds." << endl;
 
-    //------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    //Create the Hash Table and track how long it takes to be generated and print it into the output file
-    start = chrono::high_resolution_clock::now();
-    HashTable hashTable("edited.txt", PairLimit);
+    start = chrono::high_resolution_clock::now();                                                                       //Create the Hash Table and track how long it takes to be generated
+    HashTable hashTable("edited.txt", PairLimit, InitialSize);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
     outputFile << "Hash Table" << endl;
     outputFile << "Time to create: " << duration << " milliseconds. "<< endl << endl;
-    outputFile.close();
 
     cout << "Time to create: " << duration << " milliseconds." << endl;
 
-    //Call the findPairs function of the Hash Table to find the number of appearances of each pair and print the
-    //results into the output file
     start = chrono::high_resolution_clock::now();
-    hashTable.findPairs(wordPairs, NumOfRandomPairs, outFile);
+    hashTable.findPairs(wordPairs, NumOfRandomPairs, outputFile);
     end = chrono::high_resolution_clock::now();
     duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-    outputFile.open(outFile, ios::app);
-    if (!outputFile.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return -1;
-    }
     outputFile << endl << "Time to find pairs in the Hash Table: " << duration << " milliseconds." << endl;
     outputFile.close();
 
     cout << "Time to find pairs in the Hash Table: " << duration << " milliseconds." << endl;
 
-    auto endProgram = chrono::high_resolution_clock::now();
+    auto endProgram = chrono::high_resolution_clock::now();                                                //Display the total runtime of the program
     auto durationProgram = chrono::duration_cast<chrono::milliseconds>(endProgram - startProgram).count();
     cout<<endl<<"Total time of the program: "<<durationProgram<<" milliseconds"<<endl;
 
     return 0;
 }
-
-/* 
- * TODO:
- *
- * utilities.h diafores xrisimes sinartiseis
- *      file editing                DONE
- *      choose random pairs         DONE
- *      function for main stuff     NOT DONE***
- *
- *
- * datastructure geniki klasi gia oles tis domes just in case (removed for now)
- *
- * 1.unsorted array
- *      constructor                 DONE
- *      findPairs                   DONE
- *
- * 2.sorted array
- *      constructor                 DONE
- *      findPairs                   DONE
- *
- * 3.aplo dentro
- *      constructor                 DONE
- *      findPairs                   DONE
- *
- * 4.avl dentro
- *      constructor                 DONE
- *      findPairs                   DONE
- *
- * 5.pinakas katakermatismou me anoixti diefthinsi
- *      constructor                 DONE
- *      findPairs                   DONE
- *
- *             *****ANAFORA*****
- *
- *end TODO
-*/

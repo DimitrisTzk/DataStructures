@@ -1,7 +1,7 @@
 #include "SortedArray.h"
 
 //Construct array with initial size of InitialSize pairs
-SortedArray::SortedArray(const string& txt, int limit) : DataStructure(limit)
+SortedArray::SortedArray(const string &txt, int limit, int initialSize) : DataStructure(limit, initialSize)
 {
     cout << endl << "    SortedArray" << endl;
 
@@ -29,15 +29,13 @@ void SortedArray::resizeArray()
         newPairs[i] = PairsArray[i];
     }
 
-    //Delete the old array to save space
-    delete[] PairsArray;
+    delete[] PairsArray;                                                                                                //Delete the old array to save space
 
     MaxSize = newMaxSize;
     PairsArray = newPairs;
 }
 
-//Function that adds the pairs to the array, counts the number of appearances of each pair, and requests more space when
-//it's filled
+//Function that adds the pairs to the array, counts the number of appearances of each pair, and requests more space when it's filled
 void SortedArray::addPair(const string& word1, const string& word2)
 {
     if (UniquePairs >= MaxSize)
@@ -45,8 +43,7 @@ void SortedArray::addPair(const string& word1, const string& word2)
         resizeArray();
     }
 
-    //If the pair already exists in the array, increment the count
-    for (int i = 0; i < UniquePairs; ++i)
+    for (int i = 0; i < UniquePairs; ++i)                                                                               //Use binary search to check if the pair is already in the array
     {
         int temp = binarySearch(word1, word2);
         if (temp != -1)
@@ -60,27 +57,23 @@ void SortedArray::addPair(const string& word1, const string& word2)
     PairsArray[UniquePairs].wordPair.second = word2;
     ++PairsArray[UniquePairs].count;
     ++UniquePairs;
-    sortArray();
+    sortLastPair();
 }
 
-//Function to sort the array by finding the correct position for the last pair added to the array and moving the pairs
-//to the right to make space
-void SortedArray::sortArray()
+//Function that finds the correct position for the last pair added and moves pairs to the right to make space
+void SortedArray::sortLastPair()
 {
-    int i = UniquePairs - 1;
+    int i = UniquePairs - 1;                                                                                            //Index of the last pair added to the array
     Pairs temp;
 
-    //Find correct position for the first word of the pair
-    while (i > 0 && PairsArray[i].wordPair.first < PairsArray[i - 1].wordPair.first)
+    while (i > 0 && PairsArray[i].wordPair.first < PairsArray[i - 1].wordPair.first)                                    //Find the correct position for the 1st word
     {
         temp = PairsArray[i];
         PairsArray[i] = PairsArray[i - 1];
         PairsArray[i - 1] = temp;
         --i;
     }
-
-    //Find correct position for the second word of the pair
-    while (i > 0 && PairsArray[i].wordPair.first == PairsArray[i - 1].wordPair.first && PairsArray[i].wordPair.second
+    while (i > 0 && PairsArray[i].wordPair.first == PairsArray[i - 1].wordPair.first && PairsArray[i].wordPair.second   //Find the correct position including the 2nd word
             < PairsArray[i - 1].wordPair.second)
     {
         temp = PairsArray[i];
@@ -91,33 +84,24 @@ void SortedArray::sortArray()
 }
 
 //Function to find the pairs in the array using binary search and write them to the output file
-void SortedArray::findPairs(pair<string, string> *q, int size, const string &file)
+void SortedArray::findPairs(pair<string, string> *q, int size, ofstream &outFile)
 {
-    ofstream output(file, ios::app);
-
-    if (!output.is_open())
-    {
-        cout << "Failed to open the file." << endl;
-        return;
-    }
-
     for (int i = 0; i < size; ++i)
     {
         int temp = binarySearch(q[i].first, q[i].second);
         if (temp != -1)
         {
-            output << PairsArray[temp].wordPair.first << " " << PairsArray[temp].wordPair.second << " "
+            outFile << PairsArray[temp].wordPair.first << " " << PairsArray[temp].wordPair.second << " "
                    << PairsArray[temp].count << endl;
         }
         else
         {
-            output << q[i].first << " " << q[i].second << " " << 0 << endl;
+            outFile << q[i].first << " " << q[i].second << " NOTFOUND" << endl;
         }
     }
-    output.close();
 }
 
-//Function to find the position of the pair in the array using binary search
+//Binary search function used to find pairs in the array
 int SortedArray::binarySearch(const string &word1, const string &word2)
 {
     int left = 0;
@@ -142,6 +126,5 @@ int SortedArray::binarySearch(const string &word1, const string &word2)
                 return mid;
         }
     }
-    //If the pair is not in the array, return -1
-    return -1;
+    return -1;                                                                                                          //If the pair is not in the array, return -1
 }

@@ -16,7 +16,7 @@ class AVLTree : public DataStructure{
         };
         Node *Root;
     public:
-        AVLTree(const string& txt, int limit);
+        AVLTree(const string &txt, int limit, int initialSize);
         ~AVLTree();
         void destroyTree(Node* node);
         void makeTree(const string& filename);
@@ -25,7 +25,7 @@ class AVLTree : public DataStructure{
         static void rotateRight(Node *&node);
         static void doubleRotateLeft(Node *&node);
         static void doubleRotateRight(Node *&node);
-        void findPairs(pair<string, string> *q, int size, const string &file) override;
+        void findPairs(pair<string, string> *q, int size, ofstream &outFile) override;
         void findPair(Node *node, const pair<string, string>& q, ofstream &file);
         static int getHeight(Node *node);
 };

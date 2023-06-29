@@ -6,8 +6,6 @@
 #include <string>
 #include <chrono>
 
-#define InitialSize 1000000
-
 using namespace std;
 
 
@@ -21,11 +19,11 @@ class DataStructure {
         int UniquePairs;
         int MaxSize;
     public:
-        DataStructure(int limit);
+        DataStructure(int limit, int initialSize);
         ~DataStructure();
         void makeStructure(const string& filename);
-        virtual void addPair(const string& word1, const string& word2) {};
-        virtual void findPairs(pair<string, string> *q, int size, const string &file) = 0;
+        virtual void addPair(const string& word1, const string& word2) {};                                              //Virtual functions to be overridden by derived classes
+        virtual void findPairs(pair<string, string> *q, int size, ofstream &outFile) {};
 };
 
 

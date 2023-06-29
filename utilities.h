@@ -10,6 +10,9 @@
 
 using namespace std;
 
+//File with useful functions for the project that don't belong to any class
+
+//Function that splits a string into a vector of strings based on a delimiter
 vector<string> splitString(const string& input, char delimiter)
 {
     vector<string> tokens;
@@ -22,14 +25,14 @@ vector<string> splitString(const string& input, char delimiter)
     return tokens;
 }
 
+//Function that picks random pairs of words from a vector of strings
 void pickRandomPairs(const vector<string>& words, int numPairs, pair<string, string>* q)
 {
     int numWords = words.size();
 
-    // Seed the random number generator
-    random_device rd;
+    random_device rd;                                                                                                   //Seed the random number generator
     mt19937 gen(rd());
-    uniform_int_distribution<> distrib(0, numWords - 2);  // Selecting index from 0 to numWords-2
+    uniform_int_distribution<> distrib(0, numWords - 2);                                                          // Selecting index from 0 to numWords-2
 
     for (int i = 0; i < numPairs; ++i)
     {
@@ -38,17 +41,19 @@ void pickRandomPairs(const vector<string>& words, int numPairs, pair<string, str
     }
 }
 
+//Function that processes the input file and picks random pairs of words from it
 bool processFile(const string& file, pair<string, string>* q, int numPairs)
 {
     ifstream inFile(file);
     ofstream outFile("edited.txt");
 
-    // Check to make sure the files open correctly.
-    if (!inFile) {
+    if (!inFile)
+    {                                                                                                                   // Check to make sure the files open correctly.
         cerr << "Failed to open input file!" << endl;
         return false;
     }
-    if (!outFile) {
+    if (!outFile)
+    {
         cerr << "Failed to create output file!" << endl;
         return false;
     }
@@ -57,16 +62,18 @@ bool processFile(const string& file, pair<string, string>* q, int numPairs)
     char prevChar = '\0';
     string content;
 
-    while (inFile.get(c)) {
-        // Convert to lowercase
-        if (isalnum(c)) {
+    while (inFile.get(c))                                                                                            // Convert to lowercase
+    {
+        if (isalnum(c))
+        {
             outFile << static_cast<char>(tolower(c));
             prevChar = c;
             content += static_cast<char>(tolower(c));
         }
-            // Replace all other characters with spaces only if the previous character is not a space
-        else {
-            if (!isspace(prevChar)) {
+        else                                                                                                            // Replace all other characters with spaces only if the previous character is not a space
+        {
+            if (!isspace(prevChar))                                                                                  //This ensures that every word is separated by a single space
+            {
                 outFile << ' ';
                 content += ' ';
             }
@@ -80,15 +87,15 @@ bool processFile(const string& file, pair<string, string>* q, int numPairs)
     vector<string> words = splitString(content, ' ');
     int numWords = words.size();
 
-    // Check if the number of pairs requested exceeds the available number of pairs
-    if (numPairs > numWords - 1) {
+    if (numPairs > numWords - 1)                                                                                        // Check if the number of pairs requested exceeds the available number of pairs
+    {
         cerr << "Not enough words to pick " << numPairs << " pairs!" << endl;
         return false;
     }
 
     pickRandomPairs(words, numPairs, q);
 
-    cout << "File processed successfully. Number of words: " << numWords << endl;
+    cout << "File processed successfully. Number of words: " << numWords << endl;                                       //Just a way to see the size of the file
     return true;
 }
 

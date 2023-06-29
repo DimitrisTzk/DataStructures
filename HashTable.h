@@ -1,5 +1,3 @@
-//Hash Table class implemented using open addressing and the hash function djb2
-
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
@@ -15,13 +13,13 @@ class HashTable : public DataStructure{
         Pairs **Table;
         int Collisions;
     public:
-        HashTable(const string& txt, int limit);
+        HashTable(const string &txt, int limit, int initialSize);
         ~HashTable();
         void addPair(const std::string &word1, const std::string &word2) override;
         void resizeTable();
         int hash(const string& word1) const;
         int hash2(const string &word) const;
-        void findPairs(pair<string, string> *q, int size, const string &file) override;
+        void findPairs(pair<string, string> *q, int size, ofstream &outFile) override;
 };
 
 
