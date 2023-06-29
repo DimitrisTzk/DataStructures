@@ -9,7 +9,7 @@
 #include "AVLTree.h"
 #include "HashTable.h"
 
-#define inFile "gutenberg.txt"                                                                                         //Define the input file for the program (small-file.txt or gutenberg.txt)
+#define inFile "small-file.txt"                                                                                         //Define the input file for the program
 #define outFile "output.txt"                                                                                            //Define the output file for the program
 #define NumOfPairsToFind 10000                                                                                          //Number of random pairs needed for the program
 #define PairLimit (-1)                                                                                                  //Pair limit for testing purposes, -1 for no limit. Must be bigger than NumOfPairsToFind
@@ -24,7 +24,7 @@ int main()
 
     pair<string, string> wordPairs[NumOfPairsToFind];
     auto start = chrono::high_resolution_clock::now();
-    if (!processFile(inFile, wordPairs, PairLimit, NumOfPairsToFind))                                              //Run the processFile function to process the input file and choose random pairs from it
+    if (!processFile(inFile, wordPairs, PairLimit, NumOfPairsToFind))                           //Run the processFile function to process the input file and choose random pairs from it
     {
         cout << "Failed to open the file." << endl;
         return -1;                                                                                                      //If the file failed to open, return -1

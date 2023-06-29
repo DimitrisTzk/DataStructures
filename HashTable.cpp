@@ -59,7 +59,7 @@ void HashTable::addPair(const string& word1, const string& word2)
         Table[probeIndex]->count++;
 }
 
-// Function that resizes the table when the load factor is reached by doubling the size of the table and finding the next prime number as the new size
+// Function that resizes the table when the load factor is reached by doubling the size of the table
 void HashTable::resizeTable()
 {
     int oldSize = MaxSize;

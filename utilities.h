@@ -44,7 +44,7 @@ void pickRandomPairs(const vector<string>& words, int numPairs, pair<string, str
 //Function that processes the input file and picks random pairs of words from it
 bool processFile(const string& file, pair<string, string>* q, int pairLimit, int numPairs)
 {
-    if (pairLimit != -1 && (pairLimit < numPairs))                                                                                           // Check if the number of pairs requested exceeds the limit
+    if (pairLimit != -1 && (pairLimit < numPairs))                                                                      // Check if the number of pairs requested exceeds the limit
     {
         cerr << "Number of pairs requested exceeds the limit!" << endl;
         return false;
@@ -73,7 +73,7 @@ bool processFile(const string& file, pair<string, string>* q, int pairLimit, int
 
     while (inFile.get(c))                                                                                            // Convert to lowercase
     {
-        if (pairLimit != -1 && (wordCount == pairLimit + 1))                                                                                 // Stop reading the file if the limit is reached
+        if (pairLimit != -1 && (wordCount == pairLimit + 1))                                                            // Stop reading the file if the limit is reached
             break;
 
         if (isalnum(c))

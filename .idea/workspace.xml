@@ -20,11 +20,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cba6a810-23e0-4a89-9652-e63a52adc9a8" name="Changes" comment="-Now stops reading the file after reaching the set limit">
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/SortedArray.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/SortedArray.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/UnsortedArray.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/UnsortedArray.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/1_Data_Structures.dir/main.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+    <list default="true" id="cba6a810-23e0-4a89-9652-e63a52adc9a8" name="Changes" comment="-Now stops reading the file after reaching the set limit&#10;-Reverted UnsortedArray to stable version">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HashTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/HashTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities.h" beforeDir="false" afterPath="$PROJECT_DIR$/utilities.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +114,7 @@
       <workItem from="1687908909362" duration="3890000" />
       <workItem from="1687913306237" duration="2319000" />
       <workItem from="1687964130790" duration="26593000" />
-      <workItem from="1688032847265" duration="8312000" />
+      <workItem from="1688032847265" duration="9423000" />
     </task>
     <task id="LOCAL-00001" summary="-Added many missing comments.&#10;-Changed the findPairs functions to take the ofstream of the output file as an argument to avoid opening and closing the file all the time.&#10;-Changed the DataStructure constructor to take the InitialSize as an argument to move its definition to the main file">
       <option name="closed" value="true" />
@@ -132,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1688046144197</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="-Now stops reading the file after reaching the set limit&#10;-Reverted UnsortedArray to stable version">
+      <option name="closed" value="true" />
+      <created>1688046294430</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1688046294430</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,10 +152,22 @@
     <isAutomaticFoundErrors value="true" />
     <isAutomaticFoundErrors value="true" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-Added many missing comments.&#10;-Changed the findPairs functions to take the ofstream of the output file as an argument to avoid opening and closing the file all the time.&#10;-Changed the DataStructure constructor to take the InitialSize as an argument to move its definition to the main file" />
     <MESSAGE value="-Now stops reading the file after reaching the set limit" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Now stops reading the file after reaching the set limit" />
+    <MESSAGE value="-Now stops reading the file after reaching the set limit&#10;-Reverted UnsortedArray to stable version" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Now stops reading the file after reaching the set limit&#10;-Reverted UnsortedArray to stable version" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
