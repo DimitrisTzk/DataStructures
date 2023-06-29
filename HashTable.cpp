@@ -79,7 +79,8 @@ void HashTable::resizeTable()
             while (newTable[probeIndex] != nullptr && probeCount < MaxSize)
             {
                 probeCount++;
-                probeIndex = abs(index + probeCount * hash2(Table[i]->wordPair.first + Table[i]->wordPair.second)) % MaxSize;
+                probeIndex = abs(index + probeCount * hash2(Table[i]->wordPair.first +
+                        Table[i]->wordPair.second)) % MaxSize;
             }
 
             if (newTable[probeIndex] == nullptr)
